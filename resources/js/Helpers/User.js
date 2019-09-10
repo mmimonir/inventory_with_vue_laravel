@@ -22,9 +22,10 @@ class User {
         return this.hasToken()
     }
 
-    logout() {
-        AppStorage.clear()
-    }
+    // logout() {
+    //     AppStorage.clear()
+    //     this.$router.push({ name: '/' })
+    // }
 
     name() {
         if (this.loggedIn()) {

@@ -14,6 +14,7 @@
                   placeholder="Email address"
                   required="required"
                   autofocus="autofocus"
+                  v-model="form.email"
                 />
                 <label for="inputEmail">Existing Email address</label>
               </div>
@@ -30,6 +31,21 @@
   </div>
 </template>
 <script type="text/javascript">
+export default {
+  created() {
+    if (User.loggedIn()) {
+      this.$router.push({ name: "home" });
+    }
+  },
+  data() {
+    return {
+      form: {
+        email: null
+      },
+      errors: {}
+    };
+  }
+};
 </script>
 <style type="text/css">
 </style>

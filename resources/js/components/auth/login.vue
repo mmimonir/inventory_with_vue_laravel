@@ -12,10 +12,11 @@
                   id="inputEmail"
                   class="form-control"
                   placeholder="Email address"
-                  required="required"
                   autofocus="autofocus"
                   v-model="form.email"
+                  @click="errorHide"
                 />
+                <small class="text-danger" v-if="errors.email">{{errors.email[0]}}</small>
                 <label for="inputEmail">Email address</label>
               </div>
             </div>
@@ -26,9 +27,10 @@
                   id="inputPassword"
                   class="form-control"
                   placeholder="Password"
-                  required="required"
                   v-model="form.password"
+                  @click="errorHide"
                 />
+                <small class="text-danger" v-if="errors.password">{{errors.password[0]}}</small>
                 <label for="inputPassword">Password</label>
               </div>
             </div>
@@ -63,7 +65,8 @@ export default {
       form: {
         email: null,
         password: null
-      }
+      },
+      errors: {}
     };
   },
   methods: {
@@ -72,9 +75,25 @@ export default {
         .post("/api/auth/login", this.form)
         .then(res => {
           User.responseAfterLogin(res);
+          Toast.fire({
+            type: "success",
+            title: "Signed in successfully"
+          });
           this.$router.push({ name: "home" });
         })
-        .catch(error => console.log(error.response.data));
+        .catch(error => {
+          this.errors = error.response.data.errors;
+          if (this.form.email) {
+            Toast.fire({
+              type: "warning",
+              title: "Email or Password Invalid"
+            });
+          }
+          console.log(error.response.data);
+        });
+    },
+    errorHide() {
+      this.errors = {};
     }
   }
 };

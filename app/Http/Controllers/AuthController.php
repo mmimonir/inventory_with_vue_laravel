@@ -29,6 +29,11 @@ class AuthController extends Controller
      */
     public function login(Request $request)
     {
+        $validateData = $request->validate([
+            'email'=>'required',
+            'password'=>'required'
+        ]);
+        
         $credentials = $request->only('email', 'password');
 
         if ($token = $this->guard()->attempt($credentials)) {
@@ -101,8 +106,8 @@ class AuthController extends Controller
 
     public function signup(Request $request)
     {
-        $validateData = $request->validate([
-            'email'=>'required|unique:users|max:255',
+        $request->validate([
+            'email'=>'required|unique:users|max:30',
             'name'=>'required',
             'password'=>'required|min:8|confirmed'
         ]);
@@ -114,5 +119,6 @@ class AuthController extends Controller
         DB::table('users')->insert($data);
 
         return $this->login($request);
+        // return response()->json(['success' => 'Login Seccessfull']);
     }
 }

@@ -4,29 +4,31 @@
       <div class="card card-register mx-auto mt-5">
         <div class="card-header">Register an Account</div>
         <div class="card-body">
-          <form>
+          <form @submit.prevent="signup">
             <div class="form-group">
               <div class="form-label-group">
                 <input
                   type="text"
-                  id="lastName"
+                  id="name"
                   class="form-control"
-                  placeholder="Last name"
-                  required="required"
+                  placeholder="Full name"
+                  v-model="form.name"
                 />
-                <label for="lastName">Full name</label>
+                <small class="text-danger" v-if="errors.name">{{errors.name[0]}}</small>
+                <label for="name">Full name</label>
               </div>
             </div>
             <div class="form-group">
               <div class="form-label-group">
                 <input
                   type="email"
-                  id="inputEmail"
+                  id="email"
                   class="form-control"
                   placeholder="Email address"
-                  required="required"
+                  v-model="form.email"
                 />
-                <label for="inputEmail">Email address</label>
+                <small class="text-danger" v-if="errors.email">{{errors.email[0]}}</small>
+                <label for="email">Email address</label>
               </div>
             </div>
             <div class="form-group">
@@ -38,8 +40,9 @@
                       id="inputPassword"
                       class="form-control"
                       placeholder="Password"
-                      required="required"
+                      v-model="form.password"
                     />
+                    <small class="text-danger" v-if="errors.password">{{errors.password[0]}}</small>
                     <label for="inputPassword">Password</label>
                   </div>
                 </div>
@@ -50,7 +53,7 @@
                       id="confirmPassword"
                       class="form-control"
                       placeholder="Confirm password"
-                      required="required"
+                      v-model="form.password_confirmation"
                     />
                     <label for="confirmPassword">Confirm password</label>
                   </div>
@@ -68,6 +71,44 @@
   </div>
 </template>
 <script type="text/javascript">
+export default {
+  created() {
+    if (User.loggedIn()) {
+      this.$router.push({ name: "home" });
+    }
+  },
+  data() {
+    return {
+      form: {
+        name: null,
+        email: null,
+        password: null,
+        confirm_password: null
+      },
+      errors: {}
+    };
+  },
+  methods: {
+    signup() {
+      axios
+        .post("/api/auth/signup", this.form)
+        .then(res => {
+          User.responseAfterLogin(res);
+          Toast.fire({
+            type: "success",
+            title: "Signup in successfully"
+          });
+          this.$router.push({ name: "home" });
+        })
+        .catch(error => {
+          this.errors = error.response.data.errors;
+        });
+    },
+    errorHide() {
+      this.errors = {};
+    }
+  }
+};
 </script>
 <style type="text/css">
 </style>
