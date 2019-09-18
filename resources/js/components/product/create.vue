@@ -53,6 +53,7 @@
                     <option
                       v-for="category in categories"
                       :value="category.id"
+                      :key="category.id"
                     >{{category.category_name}}</option>
                   </select>
                 </div>
@@ -66,7 +67,11 @@
                     id="exampleFormControlSelect1"
                     v-model="form.supplier_id"
                   >
-                    <option v-for="supplier in suppliers" :value="supplier.id">{{supplier.name}}</option>
+                    <option
+                      v-for="supplier in suppliers"
+                      :key="supplier.id"
+                      :value="supplier.id"
+                    >{{supplier.name}}</option>
                   </select>
                   <small class="text-danger" v-if="errors.supplier_id">{{errors.supplier_id[0]}}</small>
                 </div>
@@ -209,9 +214,9 @@ export default {
     },
     productInsert() {
       axios
-        .post("/api/employee/", this.form)
+        .post("/api/product/", this.form)
         .then(() => {
-          this.$router.push({ name: "employee" });
+          this.$router.push({ name: "product" });
           Notification.success();
         })
         .catch(error => (this.errors = error.response.data.error));
