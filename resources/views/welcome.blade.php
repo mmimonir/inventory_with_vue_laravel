@@ -102,6 +102,12 @@
                         <span>Dashboard</span>
                     </router-link>
                 </li>
+                <li class="nav-item bg-danger">
+                    <router-link class="nav-link" to="home">
+                        <i class="fas fa-fw fa-tachometer-alt"></i>
+                        <span class="text-white"><b>POS</b></span>
+                    </router-link>
+                </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown"
                         aria-haspopup="true" aria-expanded="false">
@@ -149,10 +155,33 @@
                         
                     </div>
                 </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-fw fa-folder"></i>
+                        <span>Expense</span>
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="pagesDropdown">
+                        <router-link class="dropdown-item" to="/store-expense">Add Expense</router-link>
+                        <router-link class="dropdown-item" to="/expense">All Expense</router-link>                        
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-fw fa-folder"></i>
+                        <span>Salary</span>
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="pagesDropdown">
+                        <router-link class="dropdown-item" to="/given-salary">Pay Salary</router-link>
+                        <router-link class="dropdown-item" to="/salary">All Salary</router-link>                        
+                        
+                    </div>
+                </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="tables.html">
+                    <router-link class="nav-link" to="/stock">
                         <i class="fas fa-fw fa-table"></i>
-                        <span>Tables</span></a>
+                        <span>Stock</span></router-link>
                 </li>
             </ul>
 

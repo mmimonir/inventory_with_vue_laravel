@@ -15,10 +15,10 @@ class Notification {
             timeout: 1000
         }).show()
     }
-    error() {
+    error(msg = 'Something went wrong') {
         new Noty({
             type: 'error',
-            text: 'Something went wrong',
+            text: msg,
             layout: 'topRight',
             timeout: 1000
         }).show()
