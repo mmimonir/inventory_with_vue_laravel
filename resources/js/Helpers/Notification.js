@@ -7,6 +7,14 @@ class Notification {
             timeout: 1000
         }).show()
     }
+    cart_success() {
+        new Noty({
+            type: 'success',
+            text: 'Successfully Done',
+            layout: 'topRight',
+            timeout: 1000
+        }).show()
+    }
     alert() {
         new Noty({
             type: 'alert',

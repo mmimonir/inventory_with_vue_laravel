@@ -10,6 +10,11 @@ let storeemployee = require('./components/employee/create.vue').default
 let editemployee = require('./components/employee/edit.vue').default
 let employee = require('./components/employee/index.vue').default
 
+// Customer Component
+let storecustomer = require('./components/customer/create.vue').default
+let editcustomer = require('./components/customer/edit.vue').default
+let customer = require('./components/customer/index.vue').default
+
 // Supplier Component
 let storesupplier = require('./components/supplier/create.vue').default
 let editsupplier = require('./components/supplier/edit.vue').default
@@ -40,6 +45,9 @@ let editsalary = require('./components/salary/edit.vue').default
 let stock = require('./components/product/stock.vue').default
 let editstock = require('./components/product/edit-stock.vue').default
 
+// Point of Sale
+let pos = require('./components/pos/pointofsale.vue').default
+
 export const routes = [
     { path: '/', component: login, name: '/' },
     { path: '/register', component: register, name: 'register' },
@@ -69,6 +77,22 @@ export const routes = [
         path: '/edit-employee/:id',
         component: editemployee,
         name: 'edit-employee'
+    },
+    // Customer Routes
+    {
+        path: '/store-customer',
+        component: storecustomer,
+        name: 'store-customer'
+    },
+    {
+        path: '/customer',
+        component: customer,
+        name: 'customer'
+    },
+    {
+        path: '/edit-customer/:id',
+        component: editcustomer,
+        name: 'edit-customer'
     },
     // Supplier Routes
     {
@@ -159,5 +183,12 @@ export const routes = [
         path: '/edit-salary/:id',
         component: editsalary,
         name: 'edit-salary'
+    },
+
+    // POS
+    {
+        path: '/pos',
+        component: pos,
+        name: 'pos'
     }
 ]
