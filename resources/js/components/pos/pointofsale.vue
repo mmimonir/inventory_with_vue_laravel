@@ -58,43 +58,48 @@
           <ul class="list-group">
             <li class="list-group-item d-flex justify-content-between align-items-center">
               Total Quantity:
-              <strong>12</strong>
+              <strong>{{qty}}</strong>
             </li>
             <li class="list-group-item d-flex justify-content-between align-items-center">
               Sub Total:
-              <strong>100000</strong>
+              <strong>BDT: {{subtotal}}</strong>
             </li>
             <li class="list-group-item d-flex justify-content-between align-items-center">
               Vat:
-              <strong>5%</strong>
+              <strong>{{vats.vat}} %</strong>
             </li>
             <li class="list-group-item d-flex justify-content-between align-items-center">
               Total:
-              <strong>120000</strong>
+              <strong>{{(subtotal * vats.vat / 100) + subtotal}}</strong>
             </li>
           </ul>
           <br />
+          <form @submit.prevent="orderdone">
+            <label>Customer Name</label>
+            <select class="form-control" v-model="customer_id">
+              <option
+                :value="customer.id"
+                v-for="customer in customers"
+                :key="customer.id"
+              >{{ customer.name }}</option>
+            </select>
 
-          <label>Customer Name</label>
-          <select class="form-control">
-            <option v-for="customer in customers" :key="customer.id">{{ customer.name }}</option>
-          </select>
+            <label>Pay</label>
+            <input type="text" class="form-control" required v-model="pay" />
 
-          <label>Pay</label>
-          <input type="text" class="form-control" required />
+            <label>Due</label>
+            <input type="text" class="form-control" required v-model="due" />
 
-          <label>Due</label>
-          <input type="text" class="form-control" required />
+            <label>Pay By</label>
+            <select class="form-control" v-model="payby">
+              <option value="HandCash">Hand Cash</option>
+              <option value="Cheaque">Cheaque</option>
+              <option value="GiftCard">Gift Card</option>
+            </select>
 
-          <label>Pay By</label>
-          <select class="form-control">
-            <option value="HandCash">Hand Cash</option>
-            <option value="Cheaque">Cheaque</option>
-            <option value="GiftCard">Gift Card</option>
-          </select>
-
-          <br />
-          <button type="submit" class="btn btn-success">Submit</button>
+            <br />
+            <button type="submit" class="btn btn-success">Submit</button>
+          </form>
         </div>
       </div>
       <!--customer add modal-->
@@ -303,6 +308,7 @@ export default {
     this.allCategory();
     this.allCustomer();
     this.cartProduct();
+    this.vat();
     Reload.$on("AfterAdd", () => {
       this.cartProduct();
     });
@@ -318,7 +324,10 @@ export default {
         photo: "",
         phone: ""
       },
-
+      customer_id: "",
+      pay: "",
+      due: "",
+      payby: "",
       products: [],
       categories: "",
       getproducts: [],
@@ -326,7 +335,8 @@ export default {
       getsearchTerm: "",
       customers: "",
       errors: "",
-      cards: []
+      cards: [],
+      vats: ""
     };
   },
   computed: {
@@ -339,6 +349,22 @@ export default {
       return this.getproducts.filter(getproduct => {
         return getproduct.product_name.match(this.getsearchTerm);
       });
+    },
+    qty() {
+      let sum = 0;
+      for (let i = 0; i < this.cards.length; i++) {
+        sum += parseFloat(this.cards[i].pro_quantity);
+      }
+      return sum;
+    },
+    subtotal() {
+      let sum = 0;
+      for (let i = 0; i < this.cards.length; i++) {
+        sum +=
+          parseFloat(this.cards[i].pro_quantity) *
+          parseFloat(this.cards[i].product_price);
+      }
+      return sum;
     }
   },
   methods: {
@@ -371,6 +397,29 @@ export default {
       axios.get("/api/decrement/" + id).then(() => {
         Reload.$emit("AfterAdd");
         Notification.success();
+      });
+    },
+    vat() {
+      axios
+        .get("/api/vats")
+        .then(({ data }) => (this.vats = data))
+        .catch();
+    },
+    orderdone() {
+      let total = (this.subtotal * this.vats.vat) / 100 + this.subtotal;
+      var data = {
+        qty: this.qty,
+        subtotal: this.subtotal,
+        customer_id: this.customer_id,
+        payby: this.payby,
+        pay: this.pay,
+        due: this.due,
+        vat: this.vats.vat,
+        total: total
+      };
+      axios.post("/api/orderdone/", data).then(() => {
+        Notification.success();
+        this.$router.push({ name: "home" });
       });
     },
     // End Cart Method
