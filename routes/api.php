@@ -55,3 +55,11 @@ Route::post('/orderdone', 'Api\PosController@OrderDone');
 Route::get('/orders', 'Api\OrderController@TodayOrder');
 Route::get('/order/details/{id}', 'Api\OrderController@OrderDetails');
 Route::get('/order/orderdetails/{id}', 'Api\OrderController@OrderDetailsAll');
+Route::post('/search/order/', 'Api\OrderController@SearchOrderDate');
+Route::post('/search/month/', 'Api\OrderController@SearchMonth');
+// Home Component
+Route::get('/today/sell', 'Api\PosController@TodaySell');
+Route::get('/today/income', 'Api\PosController@TodayIncome');
+Route::get('/today/due', 'Api\PosController@TodayDue');
+Route::get('/today/expense', 'Api\PosController@TodayExpense');
+Route::get('/stockout', 'Api\PosController@StockOut');

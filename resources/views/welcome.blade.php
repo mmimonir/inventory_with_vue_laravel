@@ -128,7 +128,7 @@
                     <div class="dropdown-menu" aria-labelledby="pagesDropdown">
                         <router-link class="dropdown-item" to="/store-supplier">Add Supplier</router-link>
                         <router-link class="dropdown-item" to="/supplier">All Supplier</router-link>
-                        
+
                     </div>
                 </li>
                 <li class="nav-item dropdown">
@@ -140,7 +140,7 @@
                     <div class="dropdown-menu" aria-labelledby="pagesDropdown">
                         <router-link class="dropdown-item" to="/store-customer">Add Customer</router-link>
                         <router-link class="dropdown-item" to="/customer">All Customer</router-link>
-                        
+
                     </div>
                 </li>
                 <li class="nav-item dropdown">
@@ -152,7 +152,7 @@
                     <div class="dropdown-menu" aria-labelledby="pagesDropdown">
                         <router-link class="dropdown-item" to="/store-category">Add Category</router-link>
                         <router-link class="dropdown-item" to="/category">All Category</router-link>
-                        
+
                     </div>
                 </li>
                 <li class="nav-item dropdown">
@@ -164,7 +164,7 @@
                     <div class="dropdown-menu" aria-labelledby="pagesDropdown">
                         <router-link class="dropdown-item" to="/store-product">Add Product</router-link>
                         <router-link class="dropdown-item" to="/product">All Products</router-link>
-                        
+
                     </div>
                 </li>
                 <li class="nav-item dropdown">
@@ -175,7 +175,7 @@
                     </a>
                     <div class="dropdown-menu" aria-labelledby="pagesDropdown">
                         <router-link class="dropdown-item" to="/store-expense">Add Expense</router-link>
-                        <router-link class="dropdown-item" to="/expense">All Expense</router-link>                        
+                        <router-link class="dropdown-item" to="/expense">All Expense</router-link>
                     </div>
                 </li>
                 <li class="nav-item dropdown">
@@ -186,8 +186,8 @@
                     </a>
                     <div class="dropdown-menu" aria-labelledby="pagesDropdown">
                         <router-link class="dropdown-item" to="/given-salary">Pay Salary</router-link>
-                        <router-link class="dropdown-item" to="/salary">All Salary</router-link>                        
-                        
+                        <router-link class="dropdown-item" to="/salary">All Salary</router-link>
+
                     </div>
                 </li>
                 <li class="nav-item dropdown">
@@ -198,14 +198,19 @@
                     </a>
                     <div class="dropdown-menu" aria-labelledby="pagesDropdown">
                         <router-link class="dropdown-item" to="/order">Today Order</router-link>
-                        <router-link class="dropdown-item" to="/salary">Search</router-link>                        
-                        
+                        <router-link class="dropdown-item" to="/searchorder">Search</router-link>
+
                     </div>
                 </li>
                 <li class="nav-item">
                     <router-link class="nav-link" to="/stock">
                         <i class="fas fa-fw fa-table"></i>
                         <span>Stock</span></router-link>
+                </li>
+                <li class="nav-item">
+                    <router-link class="nav-link" to="#">
+                        <i class="fas fa-fw fa-table"></i>
+                        <span>Settings</span></router-link>
                 </li>
             </ul>
 
